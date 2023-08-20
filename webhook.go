@@ -9,6 +9,7 @@ import (
 
 type Webhook interface {
 	SetUsername(s string)                   // Sets the username of the webhook
+	SetAvatarUrl(url string)                // Sets the icon of the webhook
 	CreateAuthor(name, url, iconUrl string) // Creates and sets an author to the webhook
 	SetAuthor(a Author)                     // Sets a given author to a given webhook
 
@@ -50,6 +51,10 @@ func newWebhook() *webhook {
 
 func (w *webhook) SetUsername(s string) {
 	w.Username = s
+}
+
+func (w *webhook) SetAvatarUrl(s string) {
+	w.AvatarURL = s
 }
 
 // Sends the webhook to a given url
