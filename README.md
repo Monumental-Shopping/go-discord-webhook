@@ -1,2 +1,2 @@
 # go-discord-webhook
-Easy way to create and send Discord webhooks
+Source code to easily create and send webhooks
