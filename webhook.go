@@ -12,6 +12,7 @@ type Webhook interface {
 	SetAvatarUrl(url string)                // Sets the icon of the webhook
 	CreateAuthor(name, url, iconUrl string) // Creates and sets an author to the webhook
 	SetAuthor(a Author)                     // Sets a given author to a given webhook
+	SetContent(s string)                    // Message that appears outside of the embed. Up to 2k characters
 
 	CreateField(name, value string, inline bool) // Creates and sets a field to the webhook
 	AddField(f Field)                            // Adds a given field to the webhook
@@ -51,6 +52,10 @@ func newWebhook() *webhook {
 
 func (w *webhook) SetUsername(s string) {
 	w.Username = s
+}
+
+func (w *webhook) SetContent(s string) {
+	w.Content = s
 }
 
 func (w *webhook) SetAvatarUrl(s string) {
