@@ -2,7 +2,30 @@
 Source code to easily create and send webhooks
 
 # How to use
-## Methods
+## `Webhook` Methods
+| Method | Description |  Arguments  |  Notes|
+| :-------------: |:-------------:|  :-----:| :-----:|
+| `AddField` | Adds a given field to the webhook |f (Field) |
+| `AddFields` | Adds a given list of fields to the webhook | f ([]Field) |
+`CreateAuthor` | Creates and sets an author to the webhook | name (string)<br/>url (string)<br/>iconUrl (string) | |
+| `CreateField` | Creates and sets a field to the webhook | name (string)<br/>value (string)<br/>inline (bool) |
+| `CreateFooter` | Creates and sets a footer to the webhook | text (string)<br/>iconUrl (string)| `iconUrl` can be set to `""` (empty string) if no icon is needed|
+| `Send` | Sends the webhook to a given url| url (string) |
+| `SetAuthor` | Sets a given author to a given webhook | a (Author)|
+| `SetAvatarUrl` | Sets the icon of the webhook | url (string)|
+| `SetColor` | Sets the color of the embed | color (int) |
+| `SetContent` | Sets the message that appears outside of the embed| content (string)| 2,000 characters max |
+| `SetCurrentTimestamp` | Adds the current time to the embed's footer | | Sets the time when the method was called |
+| `SetDescription` | Sets the description of the embed | description (string) | 
+| `SetFooter` | Sets a given footer to the webhook | f (Footer) |
+| `SetImage` | Sets the image of the embed with a given url| url (string) |
+| `SetThumbnail` | Sets the thumbnail of the embed with a given url| url (string) |
+| `SetTimestamp` | Sets a given time to the embed's footer | t (time.Time)|
+| `SetTitle` | Set the title of the embed | title (string) |
+| `SetUrl` | Makes the title of the embed a hyperlink | url (string) |
+| `SetUsername` | Sets the username of the webhook | name (string) |
+
+
 ## Responses
 - When the `.Send()` method is called, it returns an`*http.Response`. If there are no errors in the webhook, the status code will be `204` and the body will be empty.
 - If there are any errors with the webhook (whether a rate limit or invalid data), all of the info will be in the response body. Handling the error is as simple as the following:
