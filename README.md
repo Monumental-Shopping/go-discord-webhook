@@ -4,6 +4,52 @@ Source code to easily create and send webhooks
 # How to use
 ## Methods
 ## Responses
+- When the `.Send()` method is called, it returns an`*http.Response`. If there are no errors in the webhook, the status code will be `204` and the body will be empty.
+- If there are any errors with the webhook (whether a rate limit or invalid data), all of the info will be in the response body. Handling the error is as simple as the following:
+```go
+package main
+
+import (
+	"encoding/json"
+	"io"
+	"net/http"
+	"time"
+
+	discordwebhook "github.com/Monumental-Shopping/go-discord-webhook"
+)
+
+func main() {
+	// Create a new webhook
+	w := discordwebhook.NewWebhook()
+	resp, err := w.Send(WEBHOOK_URL)
+	if err != nil {
+		// TODO handle ur errors here
+	}
+	handleResponse(resp)
+
+}
+
+func handleResponse(resp *http.Response) {
+	// Make sure to close the body after reading
+	resp.Close = true
+	defer resp.Body.Close()
+
+	// Parse response
+	body, _ := io.ReadAll(resp.Body)
+	response := &struct {
+		Message    string  `json:"message"`
+		RetryAfter float64 `json:"retry_after"`
+	}{}
+	json.Unmarshal(body, response)
+	if response.Message == "You are being rate limited." || response.Message == "The resource is being rate limited." {
+		time.Sleep(time.Duration(response.RetryAfter) * time.Second)
+		// TODO retry to send your webhook here
+		w.Send(WEBHOOK_URL)
+	}
+}
+
+```
+- **Do not forget the close the response. Not doing so can cause leaks.**
 
 
 # Examples
