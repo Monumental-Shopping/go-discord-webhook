@@ -17,6 +17,7 @@ func createField(name, value string, inline bool) *Field {
 
 // Sets a field to a webhook
 func addField(w *webhook, f Field) {
+	w.createEmbedIfNotExists()
 	w.Embeds[0].Fields = append(w.Embeds[0].Fields, f)
 }
 
