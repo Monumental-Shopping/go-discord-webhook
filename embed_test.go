@@ -29,6 +29,27 @@ func TestNewUrlSource(t *testing.T) {
 }
 
 // To run this test individually, run the command:
+// go test -v -timeout 30s -run ^TestCreateEmbedIfNotExists$ github.com/Monumental-Shopping/go-discord-webhook
+func TestCreateEmbedIfNotExists(t *testing.T) {
+	tests := []struct {
+		Webhook  webhook
+		Expected int
+	}{
+		{Webhook: webhook{}, Expected: 1},
+		{Webhook: *newWebhook(), Expected: 1},
+		{Webhook: webhook{Embeds: []Embed{{Fields: make([]Field, 0)}}}, Expected: 1},
+	}
+
+	for testNum, test := range tests {
+		t.Run(fmt.Sprintf("Test #%v", testNum+1), func(t *testing.T) {
+			test.Webhook.createEmbedIfNotExists()
+			assert.Equal(t, test.Expected, len(test.Webhook.Embeds))
+
+		})
+	}
+}
+
+// To run this test individually, run the command:
 // go test -v -timeout 30s -run ^TestSetTimestamp$ go-discord-webhook
 func TestSetTimestamp(t *testing.T) {
 	tests := []struct {

@@ -15,6 +15,7 @@ func createFooter(text, iconUrl string) *Footer {
 
 // Sets a given footer to a given webhook
 func setFooter(w *webhook, f Footer) {
+	w.createEmbedIfNotExists()
 	w.Embeds[0].Footer = f
 }
 

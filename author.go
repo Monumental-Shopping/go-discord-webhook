@@ -17,6 +17,7 @@ func createAuthor(name, url, iconUrl string) *Author {
 
 // Sets a given author to a given webhook
 func setAuthor(w *webhook, a Author) {
+	w.createEmbedIfNotExists()
 	w.Embeds[0].Author = a
 }
 
