@@ -45,9 +45,7 @@ func NewWebhook() Webhook {
 }
 
 func newWebhook() *webhook {
-	return &webhook{
-		Embeds: []Embed{{Fields: make([]Field, 0)}},
-	}
+	return &webhook{}
 }
 
 func (w *webhook) SetUsername(s string) {
